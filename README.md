@@ -1,5 +1,5 @@
 # gifbot
-![](https://i.redd.it/dufwr4d0rmjx.gif)<br><br>
+![Imgur](https://media.giphy.com/media/uLECAddeoL93q/giphy.gif)<br><br>
 A bot that posts gifs in discord chat
 
 ### Setup

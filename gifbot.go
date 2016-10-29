@@ -1,14 +1,15 @@
 package main
 
 import (
-	"strings"
+	"encoding/json"
 	"flag"
 	"fmt"
-	"net/url"
-	"net/http"
-	"io/ioutil"
-	"encoding/json"
 	"github.com/bwmarrin/discordgo"
+	"io/ioutil"
+	"net/http"
+	"net/url"
+	"os"
+	"strings"
 )
 
 // Variables used for command line parameters
@@ -20,13 +21,13 @@ var (
 )
 
 // Model of the json response from the giphy /search endpoint
-type GiphyResp struct{
+type GiphyResp struct {
 	Type string `json:"type"`
-	Data []struct{
-		Images struct{
-			Original struct{
+	Data []struct {
+		Images struct {
+			Original struct {
 				Url string `json:"url"`
-				} `json:"original"`
+			} `json:"original"`
 		} `json:"images"`
 	} `json:"data"`
 }
@@ -37,10 +38,25 @@ func init() {
 	flag.StringVar(&Password, "p", "", "Account Password")
 	flag.StringVar(&Token, "t", "", "Account Token")
 	flag.Parse()
+
+	if Email == "" && Password == "" && Token == "" {
+		fmt.Println("Email and Password or Token was not provided.")
+		os.Exit(1)
+	}
+
+	if Token == "" && Password == "" && Email != "" {
+		fmt.Println("Password was not provided.")
+		os.Exit(1)
+	}
+
+	if Token == "" && Email == "" {
+		fmt.Println("Email was not provided.")
+		os.Exit(1)
+	}
+
 }
 
 func main() {
-
 	// Create a new Discord session using the provided login information.
 	dg, err := discordgo.New(Email, Password, Token)
 	if err != nil {
@@ -82,14 +98,15 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	if strings.Index(m.Content, "gif me") >= 0 {
+	if strings.Index(m.Content, "gif me ") >= 0 {
 		gifResp := make(chan string)
-		splitArr := strings.Split(m.Content, "gif me")
-		keyword := splitArr[1]
-		go gifMe(keyword, gifResp)
-		gifs := <- gifResp
-		_, _ = s.ChannelMessageSend(m.ChannelID, gifs)
-
+		splitArr := strings.Split(m.Content, "gif me ")
+		if len(splitArr) > 1 {
+			keyword := splitArr[1]
+			go gifMe(keyword, gifResp)
+			gifs := <-gifResp
+			_, _ = s.ChannelMessageSend(m.ChannelID, gifs)
+		}
 	}
 }
 
