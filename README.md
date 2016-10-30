@@ -24,7 +24,7 @@ The bot will send a gif whenever someone types in "gif me" followed by what they
 
 Pull the image from the [Docker Hub](https://hub.docker.com/r/austin1237/gifbot/):
 ```sh
-$ docker pull austin1237/notibot
+$ docker pull austin1237/gifbot
 ```
 
 Run the image
