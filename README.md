@@ -6,7 +6,7 @@ gifbot
 A bot that posts gifs in discord chat
 
 ### Setup
-This assumes your project's directory
+This assumes your in the project's directory
 
 Download the needed dependencies
 ```sh
