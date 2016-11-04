@@ -1,5 +1,5 @@
-# gifbots
-
+gifbot
+====
 [![Build Status](https://travis-ci.org/austin1237/gifbot.svg?branch=master)](https://travis-ci.org/austin1237/gifbot)
 
 ![Imgur](https://media.giphy.com/media/uLECAddeoL93q/giphy.gif)<br><br>
