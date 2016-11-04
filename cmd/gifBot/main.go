@@ -1,23 +1,12 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
+	"github.com/austin1237/gifBot/giphy"
 	"github.com/bwmarrin/discordgo"
-	"io/ioutil"
-	"net/http"
-	"net/url"
 	"os"
 	"strings"
-)
-
-// Variables used for command line parameters
-var (
-	Email    string
-	Password string
-	Token    string
-	BotID    string
 )
 
 // Model of the json response from the giphy /search endpoint
@@ -31,6 +20,14 @@ type GiphyResp struct {
 		} `json:"images"`
 	} `json:"data"`
 }
+
+// Variables used for command line parameters
+var (
+	Email    string
+	Password string
+	Token    string
+	BotID    string
+)
 
 func init() {
 
@@ -98,30 +95,10 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	if strings.Index(m.Content, "gif me ") >= 0 {
-		gifResp := make(chan string)
-		splitArr := strings.Split(m.Content, "gif me ")
-		if len(splitArr) > 1 {
-			keyword := splitArr[1]
-			go gifMe(keyword, gifResp)
-			gifs := <-gifResp
-			_, _ = s.ChannelMessageSend(m.ChannelID, gifs)
-		}
+	gif, err := giphy.GetGif(m.Content)
+	// fmt.Println("error is" + err.Error())
+	if err == nil {
+		_, _ = s.ChannelMessageSend(m.ChannelID, gif)
 	}
-}
 
-func gifMe(keyword string, done chan string) {
-	var test GiphyResp
-	keyword = url.QueryEscape(keyword)
-	resp, err := http.Get("http://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC")
-	if err != nil {
-		done <- "An error occured trying to contact giphy"
-	}
-	defer resp.Body.Close()
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
-	err = json.Unmarshal(bodyBytes, &test)
-	if err != nil {
-		done <- "An error occured trying to contact giphy"
-	}
-	done <- test.Data[0].Images.Original.Url
 }

@@ -3,17 +3,24 @@
 A bot that posts gifs in discord chat
 
 ### Setup
-Download the needed dependcies
+This assumes your project's directory
+
+Download the needed dependencies
+```sh
+$ go get ./...
+```
+Build the binary
 
 ```sh
-$ go get
+go install ./cmd/gifBot
 ```
 
+
 ### Start
-The below example shows how to start the bot using the bot's token
+The below example shows how to start the bot using the binary and the bot's token
 
 ```sh
-$ go run gifbot.go -t="Bot YOUR_BOT_TOKEN"
+$GOPATH/bin/gifBot -t="Bot YOUR_BOT_TOKEN"
 ```
 
 ### Usage
@@ -29,10 +36,9 @@ $ docker pull austin1237/gifbot
 
 Run the image
 ```sh
-$ docker run -d --name gifbot austin1237/gifbot app -t="Bot YOUR_BOT_TOKEN"
+$ docker run -d --name gifbot austin1237/gifbot /go/bin/gifBot -t="Bot YOUR_BOT_TOKEN"
 ```
 
 ### Props
 All the contributors over at https://github.com/bwmarrin/discordgo for making an awesome package.<br><br>
 https://github.com/Giphy/GiphyAPI for having a public api key<br><br>
-https://github.com/dhedegaard/notibot for having clear documentation with a simple docker setup
