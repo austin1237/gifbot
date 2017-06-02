@@ -3,6 +3,8 @@ go:
     - 1.7.3
     - tip
 install:
-    - go get ./...
+    - sudo add-apt-repository ppa:masterminds/glide && sudo apt-get update
+    - sudo apt-get install glide
+    - glide install
 script:
     - go test -v ./...
