@@ -10,12 +10,12 @@ This assumes your in the project's directory
 
 Download the needed dependencies
 ```sh
-$ go get ./...
+$ glide install
 ```
-Build the binary
+Build and install the binary
 
 ```sh
-go install ./cmd/gifBot
+go install ./cmd/gifbot
 ```
 
 
@@ -23,7 +23,7 @@ go install ./cmd/gifBot
 The below example shows how to start the bot using the binary and the bot's token
 
 ```sh
-$GOPATH/bin/gifBot -t="Bot YOUR_BOT_TOKEN"
+$GOPATH/bin/gifBot -t="YOUR_BOT_TOKEN"
 ```
 
 ### Usage
