@@ -1,0 +1,14 @@
+hash: a6b9b94f5455aa1c09b5c4e6b7efec7494a18c6400d87f8877a3b70023fa9860
+updated: 2017-06-01T18:36:52.608982974-06:00
+imports:
+- name: github.com/bwmarrin/discordgo
+  version: 0993a94b4e1c3291bed2047f583f34792269355c
+- name: github.com/gorilla/websocket
+  version: a91eba7f97777409bc2c443f5534d41dd20c5720
+- name: golang.org/x/crypto
+  version: 5a033cc77e57eca05bdb50522851d29e03569cbe
+  subpackages:
+  - nacl/secretbox
+  - poly1305
+  - salsa20/salsa
+testImports: []
