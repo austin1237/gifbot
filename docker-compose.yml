@@ -1,0 +1,11 @@
+version: '3'
+services:
+  gifbot:
+    build: ./gifbot
+    volumes:
+      - ./gifbot:/go/src/github.com/user/gifbot/app
+    ports:
+      - "3000:8080"
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      APP_ENV: dev
