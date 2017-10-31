@@ -1,0 +1,8 @@
+version: '3'
+services:
+  gifbot:
+    build: ./gifbot
+    command: 'go test -v ./...'
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      APP_ENV: test
