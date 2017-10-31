@@ -3,7 +3,10 @@ gifbot
 ![Imgur](https://media.giphy.com/media/uLECAddeoL93q/giphy.gif)<br><br>
 A bot that posts gifs in discord chat
 
-### Setup
+## Dependencies
+You must have the following installed/configured for this to work correctly<br />
+1. [Docker](https://www.docker.com/community-edition)
+2. [Docker-Compose](https://docs.docker.com/compose/)
 
 
 ### Start
