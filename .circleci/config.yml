@@ -1,22 +1,13 @@
 version: 2
 jobs:
-  checkout_code:
-    docker:
-      - image: docker:17.05.0-ce-git
-    working_directory: ~/app
-    - save_cache:
-          key: gifbot-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - ~/app
-  test:
+
+  build:
     docker:
       - image: docker:17.05.0-ce-git
     working_directory: ~/app
     steps:
-      steps:
+      - checkout
       - setup_remote_docker
-      - restore_cache:
-          key: gifbot-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Install pip
           command: apk add --no-cache py-pip=9.0.0-r1
@@ -30,9 +21,6 @@ jobs:
 
 workflows:
   version: 2
-  test-and-build-and-deploy:
+  build-and-deploy:
     jobs:
-       - checkout_code
-       - test:
-          requires:
-            - checkout_code
+       - build:
