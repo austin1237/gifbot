@@ -1,16 +1,17 @@
 version: 2
 jobs:
-
   checkout_code:
+    docker:
+      - image: docker:17.05.0-ce-git
     working_directory: ~/app
     - save_cache:
           key: gifbot-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - ~/app
   test:
-    working_directory: ~/app
     docker:
       - image: docker:17.05.0-ce-git
+    working_directory: ~/app
     steps:
       steps:
       - setup_remote_docker
