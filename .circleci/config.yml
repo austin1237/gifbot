@@ -1,12 +1,21 @@
 version: 2
 jobs:
-  build:
-    working_directory: /app
+
+  checkout_code:
+    working_directory: ~/app
+    - save_cache:
+          key: gifbot-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/app
+  test:
+    working_directory: ~/app
     docker:
       - image: docker:17.05.0-ce-git
     steps:
-      - checkout
+      steps:
       - setup_remote_docker
+      - restore_cache:
+          key: gifbot-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Install pip
           command: apk add --no-cache py-pip=9.0.0-r1
@@ -16,3 +25,13 @@ jobs:
       - run:
           name: Run tests
           command: docker-compose -f ./docker-compose.test.yml up --exit-code-from gifbot
+  
+
+workflows:
+  version: 2
+  test-and-build-and-deploy:
+    jobs:
+       - checkout_code
+       - test:
+          requires:
+            - checkout_code
