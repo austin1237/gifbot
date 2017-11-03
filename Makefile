@@ -9,6 +9,3 @@ build:
  
 hub_push:
 	@docker push ${NAME}
- 
-# hub_login:
-# 	echo $DOCKER_PASS | docker login -u ${DOCKER_USER} --password-stdin
