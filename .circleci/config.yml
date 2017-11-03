@@ -16,10 +16,31 @@ jobs:
       - run:
           name: Run tests
           command: docker-compose -f ./docker-compose.test.yml up --exit-code-from gifbot
+    
+    package:
+      docker:
+        - image: docker:17.05.0-ce-git
+      working_directory: ~/app
+      steps:
+        - checkout
+        - setup_remote_docker
+        - run:
+            name: Login into docker hub
+            command: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+        - run: 
+            name: build image
+            command: make build
+        - run:
+            name: push image
+            command: make hub_push
+
   
 
 workflows:
   version: 2
-  build-and-deploy:
+  build-package-and-deploy:
     jobs:
        - build
+       - package:
+          requires: build
+      
