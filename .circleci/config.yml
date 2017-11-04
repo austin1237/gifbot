@@ -25,6 +25,9 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: install make
+          command: apk add --update make
+      - run:
           name: Login into docker hub
           command: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
       - run: 
