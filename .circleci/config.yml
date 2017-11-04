@@ -31,7 +31,7 @@ jobs:
           name: build image
           command: make build
       - run:
-          name: push image
+          name: push image to dockerhub
           command: make hub_push
 
   
