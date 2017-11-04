@@ -19,7 +19,7 @@ jobs:
     
   package:
     docker:
-      - image: docker:17.05.0-ce-git
+      - image: docker:17.10.0-ce-git
     working_directory: ~/app
     steps:
       - checkout
