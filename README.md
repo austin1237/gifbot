@@ -1,5 +1,6 @@
 gifbot
 ====
+[![CircleCI](https://circleci.com/gh/austin1237/gifbot.svg?style=svg)](https://circleci.com/gh/austin1237/gifbot)<br>
 ![Imgur](https://media.giphy.com/media/uLECAddeoL93q/giphy.gif)<br><br>
 A bot that posts gifs in discord chat
 
