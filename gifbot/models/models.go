@@ -1,13 +1,13 @@
 package models
 
 // Model of the json response from the giphy /search endpoint
-type GiphyResp struct {
+type GiphyJson struct {
 	Type string `json:"type"`
 	Data []struct {
 		Images struct {
-			Original struct {
+			Fixed_height struct {
 				Url string `json:"url"`
-			} `json:"original"`
+			} `json:"fixed_height"`
 		} `json:"images"`
 	} `json:"data"`
 }
