@@ -23,12 +23,12 @@ variable "key_pair_name" {
 }
 
 variable "gifbot_image" {
-  description = "The name of the Docker image to deploy for the Sinatra backend (e.g. gruntwork/sinatra-backend)"
+  description = "The name of the Docker image to deploy for the gifbot (e.g. austin1237/gifbot)"
   default = "austin1237/gifbot"
 }
 
 variable "gifbot_version" {
-  description = "The version (i.e. tag) of the Docker container to deploy for the Sinatra backend (e.g. latest, 12345)"
+  description = "The version (i.e. tag) of the Docker container to deploy for the gifbot (e.g. latest, 12345)"
   default = "latest"
 }
 

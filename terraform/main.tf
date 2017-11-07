@@ -15,7 +15,7 @@ module "ecs_cluster" {
 
   name = "gifbot-ecs"
   size = 1
-  instance_type = "t2.micro"
+  instance_type = "t2.nano"
   key_pair_name = "${var.key_pair_name}"
 
   vpc_id = "${data.aws_vpc.default.id}"
@@ -28,9 +28,9 @@ module "ecs_cluster" {
   # Here, we allow the EC2 Instances in the ECS Cluster to recieve requests on the ports used by the rails-frontend
   # and sinatra-backend. To keep the example simple to test, we allow these requests from any IP, but in real-world
   # use cases, you should lock this down to just the IP addresses of the ELB and other trusted parties.
-  allow_inbound_ports_and_cidr_blocks = "${map(
-    var.gifbot_port, "0.0.0.0/0"
-  )}"
+  # allow_inbound_ports_and_cidr_blocks = "${map(
+  #   var.gifbot_port, "0.0.0.0/0"
+  # )}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ module "gifbot" {
   image = "${var.gifbot_image}"
   version = "${var.gifbot_version}"
   cpu = 1024
-  memory = 512
+  memory = 400
   desired_count = 1
   
   container_port = "${var.gifbot_port}"
