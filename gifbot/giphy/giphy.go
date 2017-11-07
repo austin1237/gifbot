@@ -9,18 +9,9 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-)
 
-type GiphyJson struct {
-	Type string `json:"type"`
-	Data []struct {
-		Images struct {
-			Fixed_height struct {
-				Url string `json:"url"`
-			} `json:"fixed_height"`
-		} `json:"images"`
-	} `json:"data"`
-}
+	"github.com/user/gifbot/app/models"
+)
 
 func getKeyword(content string) (string, error) {
 	var err error
@@ -48,7 +39,7 @@ func GetGif(discordMessage string) (string, error) {
 func callSearchApi(keyword string) (string, error) {
 	var err error
 	noGifsFound := "No gifs found when searching for " + keyword
-	var giphyJson GiphyJson
+	var giphyJson models.GiphyJson
 	keywordQuery := url.QueryEscape(keyword)
 	// grabes the maximun number of images gify allows
 	resp, err := http.Get("http://api.giphy.com/v1/gifs/search?q=" + keywordQuery + "&api_key=dc6zaTOxFJmzC&limit=100")
