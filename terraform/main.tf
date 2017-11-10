@@ -1,5 +1,12 @@
 terraform {
   required_version = "> 0.10.0"
+  backend "s3" {
+    bucket     = "austin1237-gifbot-state"
+    key        = "global/s3/terraform.tfstate"
+    region     = "us-east-1"
+    encrypt    = "true"
+    lock_table = "gifbot-state-lock"
+  }
 }
 
 provider "aws" {
@@ -21,16 +28,6 @@ module "ecs_cluster" {
   vpc_id = "${data.aws_vpc.default.id}"
   subnet_ids = ["${data.aws_subnet.default.*.id}"]
 
-  # To keep the example simple to test, we allow SSH access from anywhere. In real-world use cases, you should lock 
-  # this down just to trusted IP addresses.
-  # allow_ssh_from_cidr_blocks = ["0.0.0.0/0"]
-
-  # Here, we allow the EC2 Instances in the ECS Cluster to recieve requests on the ports used by the rails-frontend
-  # and sinatra-backend. To keep the example simple to test, we allow these requests from any IP, but in real-world
-  # use cases, you should lock this down to just the IP addresses of the ELB and other trusted parties.
-  # allow_inbound_ports_and_cidr_blocks = "${map(
-  #   var.gifbot_port, "0.0.0.0/0"
-  # )}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
