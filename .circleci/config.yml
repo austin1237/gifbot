@@ -49,13 +49,13 @@ jobs:
     steps:
       - checkout
       - run:
-        name: deploy with terraform
-        command: |
-              if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                make deploy_prod
-              else
-                make deploy_dev
-              fi
+          name: deploy with terraform
+          command: |
+                if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                  make deploy_prod
+                else
+                  make deploy_dev
+                fi
 
 
   
