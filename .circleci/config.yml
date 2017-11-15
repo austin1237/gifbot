@@ -49,6 +49,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install make
+          command: apk add --update make
+      - run:
           name: deploy with terraform
           command: |
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
