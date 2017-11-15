@@ -50,7 +50,7 @@ module "gifbot" {
   host_port = "${var.gifbot_port}"
 
   num_env_vars = 1
-  env_vars = "${map("BOT_TOKEN", "${var.BOT_TOKEN}")}"
+  env_vars = "${map("BOT_TOKEN", "${var.BOT_TOKEN_DEV}")}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

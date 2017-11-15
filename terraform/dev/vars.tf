@@ -38,4 +38,4 @@ variable "gifbot_port" {
   default = 8080
 }
 
-variable "BOT_TOKEN" {}
+variable "BOT_TOKEN_DEV" {}
