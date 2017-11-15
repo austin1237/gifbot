@@ -32,13 +32,18 @@ jobs:
           command: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
       - run: 
           name: build image
-          command: make build
+          command: |
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                make build_prod
+              else
+                make build_dev
+              fi
       - run:
           name: push image to docker hub
           command: make hub_push
+          
 
   
-
 workflows:
   version: 2
   build-package-and-deploy:
@@ -51,4 +56,5 @@ workflows:
             branches:
               only: 
                 - master
+                - terraform
       
