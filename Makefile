@@ -2,6 +2,7 @@ NAME   := austin1237/gifbot
 TAG    := $$(git rev-parse HEAD)
 IMG    := ${NAME}:${TAG}
 LATEST := ${NAME}:latest
+DEV    := ${NAME}:dev
 
 
 build_prod:
@@ -9,8 +10,8 @@ build_prod:
 	@docker tag ${IMG} ${LATEST}
 
 build_dev:
-	@docker build ./gifbot
-	@docker tag dev
+	@docker build -t ${IMG}_dev ./gifbot
+	@docker tag ${IMG} ${DEV}
 
 hub_push:
 	@docker push ${NAME}
