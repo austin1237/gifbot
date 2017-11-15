@@ -11,7 +11,7 @@ build_prod:
 
 build_dev:
 	@docker build -t ${IMG}_dev ./gifbot
-	@docker tag ${IMG} ${DEV}
+	@docker tag ${IMG}_dev ${DEV}
 
 hub_push:
 	@docker push ${NAME}
