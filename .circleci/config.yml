@@ -42,6 +42,21 @@ jobs:
           name: push image to docker hub
           command: make hub_push
           
+  deploy:
+    docker:
+      - image: terraform:0.10.8
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+        name: deploy with terraform
+        command: |
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                make deploy_prod
+              else
+                make deploy_dev
+              fi
+
 
   
 workflows:
@@ -49,6 +64,7 @@ workflows:
   build-package-and-deploy:
     jobs:
        - build
+
        - package:
           requires: 
             - build
@@ -57,4 +73,13 @@ workflows:
               only: 
                 - master
                 - terraform
-      
+        
+       - deploy:
+          requires: 
+            - package
+          filters:
+            branches:
+              only: 
+                - master
+                - terraform
+

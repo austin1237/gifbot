@@ -15,3 +15,11 @@ build_dev:
 
 hub_push:
 	@docker push ${NAME}
+
+deploy_dev:
+	cd terraform/dev && terraform init
+	cd terraform/dev && terraform apply
+
+deploy_prod:
+	cd terraform/prod && terraform init
+	cd terraform/prod && terraform apply
