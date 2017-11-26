@@ -75,7 +75,7 @@ workflows:
             branches:
               only: 
                 - master
-                - terraform
+                - dev
         
        - deploy:
           requires: 
@@ -84,5 +84,5 @@ workflows:
             branches:
               only: 
                 - master
-                - terraform
+                - dev
 
