@@ -23,3 +23,14 @@ deploy_dev:
 deploy_prod:
 	cd terraform/prod && terraform init
 	cd terraform/prod && terraform apply
+
+init_terraform_remote_state:
+	cd terraform/dev/remote-state && terraform init
+	cd terraform/dev/remote-state && terraform apply
+	echo "dev storage deployed"
+	cd terraform/prod/remote-state && terraform init
+	cd terraform/prod/remote-state && terraform apply
+	echo "prod storage deployed"
+	echo "terraform remote state management can now be used"
+
+
