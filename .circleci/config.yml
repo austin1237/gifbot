@@ -32,18 +32,42 @@ jobs:
           command: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
       - run: 
           name: build image
-          command: make build
+          command: |
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                make build_prod
+              else
+                make build_dev
+              fi
       - run:
           name: push image to docker hub
           command: make hub_push
+          
+  deploy:
+    docker:
+      - image: hashicorp/terraform:0.10.8
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: install make
+          command: apk add --update make
+      - run:
+          name: deploy with terraform
+          command: |
+                if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                  make deploy_prod
+                else
+                  make deploy_dev
+                fi
+
 
   
-
 workflows:
   version: 2
   build-package-and-deploy:
     jobs:
        - build
+
        - package:
           requires: 
             - build
@@ -51,4 +75,14 @@ workflows:
             branches:
               only: 
                 - master
-      
+                - dev
+        
+       - deploy:
+          requires: 
+            - package
+          filters:
+            branches:
+              only: 
+                - master
+                - dev
+

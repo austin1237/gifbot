@@ -19,5 +19,16 @@
 # Golang project vendor packages which should be ignored
 vendor/
 
-# File created by hotreloader github.com/pilu/fresh
-gifbot/cmd/gifbot/tmp/*
+# tmp dir created by hotreloader github.com/pilu/fresh
+tmp/
+
+
+#  Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# .tfvars files
+*.tfvars
