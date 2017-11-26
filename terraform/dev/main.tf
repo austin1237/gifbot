@@ -1,11 +1,11 @@
 terraform {
   required_version = "> 0.10.0"
   backend "s3" {
-    bucket     = "austin1237-gifbot-state"
+    bucket     = "austin1237-gifbot-state-dev"
     key        = "global/s3/terraform.tfstate"
     region     = "us-east-1"
     encrypt    = "true"
-    lock_table = "gifbot-state-lock"
+    lock_table = "gifbot-state-lock-dev"
   }
 }
 
