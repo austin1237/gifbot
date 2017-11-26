@@ -20,7 +20,7 @@ provider "aws" {
 module "ecs_cluster" {
   source = "./ecs-cluster"
 
-  name = "gifbot-ecs"
+  name = "gifbot-ecs-${var.env}"
   size = 1
   instance_type = "t2.nano"
   key_pair_name = "${var.key_pair_name}"
@@ -37,7 +37,7 @@ module "ecs_cluster" {
 module "gifbot" {
   source = "./ecs-service"
 
-  name = "gifbot"
+  name = "gifbot-${var.env}"
   ecs_cluster_id = "${module.ecs_cluster.ecs_cluster_id}"
   
   image = "${var.gifbot_image}"

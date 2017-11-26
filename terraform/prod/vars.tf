@@ -39,3 +39,8 @@ variable "gifbot_port" {
 }
 
 variable "BOT_TOKEN_PROD" {}
+
+variable "env" {
+  description = "Name of the environment example dev/prod"
+  default = "prod"
+}
