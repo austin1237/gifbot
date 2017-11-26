@@ -5,7 +5,7 @@
 
 # AWS_ACCESS_KEY_ID
 # AWS_SECRET_ACCESS_KEY
-# TF_VAR_BOT_TOKEN
+# TF_VAR_BOT_TOKEN_PROD
 
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL MODULE PARAMETERS
