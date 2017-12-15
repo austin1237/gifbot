@@ -20,7 +20,7 @@
 vendor/
 
 # tmp dir created by hotreloader github.com/pilu/fresh
-tmp/
+gifbot/cmd/gifbot/tmp/
 
 
 #  Local .terraform directories
