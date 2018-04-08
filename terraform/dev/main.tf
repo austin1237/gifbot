@@ -1,5 +1,6 @@
 terraform {
   required_version = "> 0.10.0"
+
   backend "s3" {
     bucket     = "austin1237-gifbot-state-dev"
     key        = "global/s3/terraform.tfstate"
@@ -20,14 +21,13 @@ provider "aws" {
 module "ecs_cluster" {
   source = "./ecs-cluster"
 
-  name = "gifbot-ecs-${var.env}"
-  size = 1
+  name          = "gifbot-ecs-${var.env}"
+  size          = 1
   instance_type = "t2.nano"
   key_pair_name = "${var.key_pair_name}"
 
-  vpc_id = "${data.aws_vpc.default.id}"
+  vpc_id     = "${data.aws_vpc.default.id}"
   subnet_ids = ["${data.aws_subnet.default.*.id}"]
-
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -37,20 +37,20 @@ module "ecs_cluster" {
 module "gifbot" {
   source = "./ecs-service"
 
-  name = "gifbot-${var.env}"
+  name           = "gifbot-${var.env}"
   ecs_cluster_id = "${module.ecs_cluster.ecs_cluster_id}"
-  
-  image = "${var.gifbot_image}"
-  version = "${var.gifbot_version}"
-  cpu = 1024
-  memory = 400
+
+  image         = "${var.gifbot_image}"
+  image_version = "${var.gifbot_version}"
+  cpu           = 1024
+  memory        = 400
   desired_count = 1
-  
+
   container_port = "${var.gifbot_port}"
-  host_port = "${var.gifbot_port}"
+  host_port      = "${var.gifbot_port}"
 
   num_env_vars = 1
-  env_vars = "${map("BOT_TOKEN", "${var.BOT_TOKEN_DEV}")}"
+  env_vars     = "${map("BOT_TOKEN", "${var.BOT_TOKEN_DEV}")}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -71,8 +71,8 @@ data "aws_availability_zones" "available" {}
 
 # Look up the default subnets in the AZs available to this account (up to a max of 3)
 data "aws_subnet" "default" {
-  count = "${min(length(data.aws_availability_zones.available.names), 3)}"
-  default_for_az = true
-  vpc_id = "${data.aws_vpc.default.id}"
+  count             = "${min(length(data.aws_availability_zones.available.names), 3)}"
+  default_for_az    = true
+  vpc_id            = "${data.aws_vpc.default.id}"
   availability_zone = "${element(data.aws_availability_zones.available.names, count.index)}"
 }
